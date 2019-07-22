@@ -43,14 +43,19 @@
                                     <div class="media-body">
                                         <div class="d-flex align-items-center">
                                             <h3 class="mt-o"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
-                                            <a href="{{ route('questions.edit', $question->id) }}"
-                                               class="btn btn-sm btn-outline-info ml-auto edit-btn"><span class="fa fa-edit">Edit</span></a>
-                                            <form action="{{ route('questions.destroy', $question->id) }}" method="post">
+                                            @if (\Illuminate\Support\Facades\Auth::user()->can('update-question', $question))
+                                                <a href="{{ route('questions.edit', $question->id) }}"class="btn btn-sm btn-outline-info ml-auto edit-btn"><span class="fa fa-edit">Edit</span></a>
+                                            @endif
+
+                                            @if (\Illuminate\Support\Facades\Auth::user()->can('delete-question', $question))
+
+                                                <form action="{{ route('questions.destroy', $question->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-outline-danger ml-auto" onclick="return confirm('I sincerely hope you know what your are doing!!!')">Delete</button>
-                                            </form>
+                                                    <button type="submit"  class="btn btn-sm btn-outline-danger ml-auto" onclick="return confirm('I sincerely hope you know what your are doing!!!')">Delete</button>
+                                                </form>
+                                            @endif
+
                                         </div>
                                         <p class="lead">
                                             Asked by : <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
