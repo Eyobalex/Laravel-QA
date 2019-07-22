@@ -15,6 +15,8 @@
             <div class="col-md-12">
                 <div class="card">
 
+                        @include('partials.message')
+
                        <div class="card-header">
                            <div class="d-flex align-items-center">
                                <h2>All Questions</h2>
@@ -25,7 +27,6 @@
 
                        </div>
                         <div class="card-body">
-                            @include('partials.message')
                             @foreach($questions as $question)
                                 <div class="media">
                                     <div class="d-flex flex-column counters">
@@ -40,7 +41,11 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <h3 class="mt-o"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
+                                        <div class="d-flex align-items-center">
+                                            <h3 class="mt-o"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
+                                            <a href="{{ route('questions.edit', $question->id) }}"
+                                               class="btn btn-sm btn-outline-info ml-auto">Edit</a>
+                                        </div>
                                         <p class="lead">
                                             Asked by : <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
                                             <small class="text-muted">{{$question->created_date}}</small>
