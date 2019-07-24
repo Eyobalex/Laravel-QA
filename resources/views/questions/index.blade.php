@@ -45,7 +45,7 @@
                                             <h3 class="mt-o"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
                                             {{--@if ( \Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->can('update-question', $question))--}}
                                             @can('update', $question)
-                                                <a href="{{ route('questions.edit', $question->id) }}"class="btn btn-sm btn-outline-info ml-auto edit-btn"><span class="fa fa-edit">Edit</span></a>
+                                                <a href="{{ route('questions.edit', $question->id) }}"class="btn btn-sm btn-outline-info ml-auto edit-btn"><span >Edit</span></a>
                                             @endcan
                                        {{--@if ( \Illuminate\Support\Facades\Auth::check() && Auth::user()->can('delete-question', $question))--}}
                                             @can('delete', $question)
