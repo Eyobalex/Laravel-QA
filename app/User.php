@@ -54,4 +54,10 @@ class User extends Authenticatable
     public function getUrlAttribute(){
         return route('questions.show', $this->id);
     }
+
+    public function getAvatarAttribute(){
+        $email = $this->email;
+        $size = 32;
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+    }
 }
