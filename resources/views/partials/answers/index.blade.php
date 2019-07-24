@@ -22,7 +22,7 @@
                                                             'like' => 'Mark this answer as best answer',
                                                             'fa' => 'check',
                                                             'class'=>'answer',
-                                                            'action'=> ''])
+                                                            'action'=> $answer->status])
                         <div class="media-body">
                             {!! $answer->body_html !!}
                             <div class="row">
