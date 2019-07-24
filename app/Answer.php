@@ -17,6 +17,9 @@ class Answer extends Model
         static::created(function ($a){
             $a->question->increment('answers_count');
         });
+        static::deleted(function ($a){
+            $a->question->decrement('answers_count');
+        });
     }
 
     //relationships

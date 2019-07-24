@@ -55,7 +55,11 @@
         </div>
 
         @include('partials.answers.index', ['answers_count' => $question->answers_count, 'answers' => $question->answers])
-        @include('partials.answers.create')
+
+
+       @include('partials.answers.create')
+
+
 
     </div>
 

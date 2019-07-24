@@ -10687,6 +10687,10 @@ a.text-dark:focus {
   margin-right: 10px;
 }
 
+.delete-btn {
+  display: inline;
+}
+
 .vote-controls {
   min-width: 40px;
   margin-right: 30px;

@@ -42,20 +42,22 @@
                                     </div>
                                     <div class="media-body">
                                         <div class="d-flex align-items-center">
-                                            <h3 class="mt-o"><a href="{{ $question->url }}">{{ $question->title}}</a></h3>
+                                            <h3 class="mt-o"><a href="{{ $question->url}}">{{ $question->title}}</a></h3>
+                                            <div class="ml-auto">
                                             {{--@if ( \Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->can('update-question', $question))--}}
-                                            @can('update', $question)
-                                                <a href="{{ route('questions.edit', $question->id) }}"class="btn btn-sm btn-outline-info ml-auto edit-btn"><span >Edit</span></a>
-                                            @endcan
-                                       {{--@if ( \Illuminate\Support\Facades\Auth::check() && Auth::user()->can('delete-question', $question))--}}
-                                            @can('delete', $question)
+                                                @can('update', $question)
+                                                    <a href="{{ route('questions.edit', $question->id) }}"class="btn btn-sm btn-outline-info ml-auto edit-btn"><span >Edit</span></a>
+                                                @endcan
+                                                   {{--@if ( \Illuminate\Support\Facades\Auth::check() && Auth::user()->can('delete-question', $question))--}}
+                                                @can('delete', $question)
 
-                                                <form action="{{ route('questions.destroy', $question->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit"  class="btn btn-sm btn-outline-danger ml-auto" onclick="return confirm('I sincerely hope you know what your are doing!!!')">Delete</button>
-                                                </form>
+                                                    <form action="{{ route('questions.destroy', $question->id) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"  class="btn btn-sm btn-outline-danger ml-auto delete-btn" onclick="return confirm('I sincerely hope you know what your are doing!!!')">Delete</button>
+                                                    </form>
                                             @endcan
+                                            </div>
 
                                         </div>
                                         <p class="lead">
