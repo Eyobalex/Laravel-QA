@@ -56,5 +56,12 @@ class Question extends Model
 
 
     //scope
+
+
+    //
+    public function acceptBestAnswer($answer){
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
     
 }

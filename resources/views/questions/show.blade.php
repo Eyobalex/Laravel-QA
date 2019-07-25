@@ -27,11 +27,14 @@
                             <hr>
                         </div>
                         <div class="media">
-                            @include('partials.vote-control', ['type'=> 'question',
-                                                              'like' => 'Mark this question as favorite',
-                                                              'fa' => 'star',
-                                                              'class'=>'favorite',
-                                                              'action' => 'favorited'])
+
+                            <div class="d-flex flex-column vote-controls">
+                                <a href="" title="This question is useful" class="vote-up">  <i class="fas fa-caret-up fa-3x"></i></a>
+                                <span class="vote">123</span>
+                                <a href="" title="This question is not useful" class="vote-down off"> <i class="fas fa-caret-down fa-3x"></i></a>
+                                <a href="" title="Mark this question as favorite" class="favorite  mt-2" >  <i class="fas fa-star fa-2x"></i>
+                                    <span class="favorite-count">121</span></a>
+                            </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}
 
