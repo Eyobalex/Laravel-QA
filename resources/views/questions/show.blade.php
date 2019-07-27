@@ -29,11 +29,26 @@
                         <div class="media">
 
                             <div class="d-flex flex-column vote-controls">
-                                <a href="" title="This question is useful" class="vote-up">  <i class="fas fa-caret-up fa-3x"></i></a>
-                                <span class="vote">123</span>
-                                <a href="" title="This question is not useful" class="vote-down off"> <i class="fas fa-caret-down fa-3x"></i></a>
-                                <a href="" title="Mark this question as favorite" class="favorite  mt-2" >  <i class="fas fa-star fa-2x"></i>
-                                    <span class="favorite-count">121</span></a>
+                                <a href="" title="This question is useful" class="vote-up" onclick="event.preventDefault(); document.getElementById('up-vote-question-{{$question->id}}').submit();">  <i class="fas fa-caret-up fa-3x"></i></a>
+                                <span class="vote">{{ $question->voteCount }}</span>
+                                <form action=" {{ route('voteQuestions', $question->id  ) }}" id="up-vote-question-{{$question->id}}" style="display: none;" method="post">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="1">
+                                </form>
+                                <a href="" onclick="event.preventDefault(); document.getElementById('down-vote-question-{{$question->id}}').submit();" title="This question is not useful" class="vote-down off"> <i class="fas fa-caret-down fa-3x"></i></a>
+                                <form action="{{ route('voteQuestions', $question->id   ) }}" id="down-vote-question-{{$question->id}}" style="display: none;" method="post">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="-1">
+                                </form>
+                                <a href="" title="Mark this question as favorite" class="favorite {{ $question->favorite_class }}  mt-2" onclick="event.preventDefault(); document.getElementById('favorite-question-{{$question->id}}').submit();">  <i class="fas fa-star fa-2x"></i>
+                                    <span class="favorite-count">{{ $question->favoriteCount }}</span></a>
+
+                                <form action=" {{ $question->id }}/favorite" id="favorite-question-{{$question->id}}" style="display: none;" method="post">
+                                    @csrf
+                                    @if ($question->is_favorite)
+                                        @method ('delete')
+                                    @endif
+                                </form>
                             </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Question extends Model
 {
@@ -21,6 +22,13 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function favorites(){
+        return $this->belongsToMany(User::class, 'favorite')->withTimestamps();
+    }
+
+    public function votes(){
+        return $this->morphToMany(User::class, 'votable');
+    }
 
     //mutators
     public function setTitleAttribute($value){
@@ -49,13 +57,27 @@ class Question extends Model
             return "unanswered";
         }
     }
+    public function getVotesCountAccessor(){
+        return $this->votes->count();
+    }
 
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
     }
+    public function getIsFavoriteAttribute(){
+        return $this->isFavorite();
+    }
+    public function getFavoriteClassAttribute(){
+        return Auth::guest()? 'off' : ($this->isFavorite() ? 'favorited' : '');
+    }
+    public function getFavoriteCountAttribute(){
+        return $this->favorites->count();
+    }
 
 
     //scope
+
+
 
 
     //
@@ -63,5 +85,17 @@ class Question extends Model
         $this->best_answer_id = $answer->id;
         $this->save();
     }
+
+    public function isFavorite(){
+        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+    }
+
+    public function upVotes(){
+        return $this->votes()->wherePivot('vote',1);
+    }
+    public function downVotes(){
+        return $this->votes()->wherePivot('vote',-1);
+    }
+
     
 }
