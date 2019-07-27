@@ -18,9 +18,20 @@
                 @foreach($answers as $answer)
                     <div class="media">
                         <div class="d-flex flex-column vote-controls">
-                            <a href="" title="This answer is useful" class="vote-up">  <i class="fas fa-caret-up fa-3x"></i></a>
-                            <span class="vote">123</span>
-                            <a href="" title="This answer is not useful" class="vote-down off"> <i class="fas fa-caret-down fa-3x"></i></a>
+                            <a href="" title="This answer is useful" class="vote-up"
+                               onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{$answer->id}}').submit();">  <i class="fas fa-caret-up fa-3x"></i></a>
+                            <span class="vote">{{ $answer->votes_count }}</span>
+                            <form action=" {{ route('voteAnswers', $answer->id  ) }}" id="up-vote-answer-{{$answer->id}}" style="display: none;" method="post">
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+
+                            <a href="" title="This answer is not useful" class="vote-down"  onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{$answer->id}}').submit();"> <i class="fas fa-caret-down fa-3x"></i></a>
+                            <form action=" {{ route('voteAnswers', $answer->id  ) }}" id="down-vote-answer-{{$answer->id}}" style="display: none;" method="post">
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
+
                             @can('accept', $answer)
                                 <a href="" title="Mark this answer as best answer" class="answer {{$answer->status}} mt-2" onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit();">  <i class="fas fa-check fa-2x"></i>
                                     </a>

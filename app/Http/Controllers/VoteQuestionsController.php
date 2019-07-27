@@ -16,6 +16,6 @@ class VoteQuestionsController extends Controller
     {
         $vote = \request()->vote;
         auth()->user()->voteQuestion($question, $vote);
-        return back();
+        return back()->with('success', 'you have voted');
     }
 }

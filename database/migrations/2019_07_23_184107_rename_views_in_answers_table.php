@@ -14,7 +14,7 @@ class RenameViewsInAnswersTable extends Migration
     public function up()
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->renameColumn('views', 'votes');
+            $table->renameColumn('views', 'votes_count');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameViewsInAnswersTable extends Migration
     public function down()
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->renameColumn('votes', 'views');
+            $table->renameColumn('votes_count', 'views');
 
         });
     }
