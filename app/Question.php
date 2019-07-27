@@ -59,7 +59,8 @@ class Question extends Model
     }
 
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+
+        return $this->bodyHtml();
     }
     public function getIsFavoriteAttribute(){
         return $this->isFavorite();
@@ -70,6 +71,10 @@ class Question extends Model
     public function getFavoriteCountAttribute(){
         return $this->favorites->count();
     }
+    
+    public function getExcerptAttribute(){
+        return str_limit(strip_tags($this->bodyHtml()), 300);
+    }
 
     //
     public function acceptBestAnswer($answer){
@@ -79,5 +84,10 @@ class Question extends Model
 
     public function isFavorite(){
         return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+    }
+
+    private function bodyHtml ()
+    {
+        return clean(\Parsedown::instance()->text($this->body));
     }
 }
